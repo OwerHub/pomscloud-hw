@@ -9,15 +9,34 @@
     </button>
   </div>
   <div>
-    <div
-      v-for="user in filteredUsers"
-      v-bind:key="user.id"
-      v-show="user.status === 'active' || (!onlyActive && user.status === 'passive')"
-    >
-      {{ user.name }} | {{ user.email }} | {{ user.descript }} | {{ user.type }}
-    </div>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>mail</th>
+        <th>desc</th>
+        <th>type</th>
+        <th>status</th>
+        <th>signup</th>
+        <th>modify</th>
+      </tr>
+      <tr
+        v-for="user in filteredUsers"
+        v-bind:key="user.id"
+        v-show="
+          user.status === 'active' || (!onlyActive && user.status === 'passive')
+        "
+      >
+        <th>{{ user.name }}</th>
+        <th>{{ user.email }}</th>
+        <th>{{ user.descript }}</th>
+        <th>{{ user.type }}</th>
+        <th>{{ user.status }}</th>
+        <th>{{ user.signupTime }}</th>
+        <th v-on:click="sendToModal(user.id)">modify</th>
+      </tr>
+    </table>
   </div>
-  <Modal @modalClose="closeModal" v-if="modalOpen" />
+  <Modal @modalClose="closeModal" :userId="userIdForModal" v-if="modalOpen" />
   <button @click="modalOpen = !modalOpen">Modal Open</button>
 </template>
 
@@ -35,7 +54,7 @@ export default {
       search: "",
       onlyActive: false,
       modalOpen: false,
-      userIdForModal: 0,
+      userIdForModal: 99,
     };
   },
   created() {
@@ -50,9 +69,19 @@ export default {
   },
   methods: {
     closeModal: function () {
-      console.log("closamodal ");
       this.modalOpen = false;
+    },
+
+    sendToModal: function (id) {
+      this.userIdForModal = id;
+      this.modalOpen = true;
     },
   },
 };
 </script>
+
+<style>
+table {
+  width: 90vw;
+}
+</style>

@@ -4,6 +4,22 @@
       modalInner
 
       <button @click="closeModal">close</button>
+      <div class="inputDiv">
+        <input type="text" v-model="actualUser.name" />
+        <input type="text" v-model="actualUser.email" />
+        <textarea type="text" v-model="actualUser.descript" />
+
+        <div v-for="inputType in ['user', 'admin']" :key="inputType">
+          <input
+            type="radio"
+            name="inputType"
+            :id="inputType"
+            :value="inputType"
+            v-model="actualUser.type"
+          />
+          @{{ inputType }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -11,10 +27,23 @@
 <script>
 export default {
   name: "Modal",
+  props: ["userId"],
+  data() {
+    return {
+      id: this.userId,
+
+      actualUser: [],
+    };
+  },
   methods: {
     closeModal: function () {
       this.$emit("modalClose");
     },
+  },
+  created() {
+    this.actualUser = this.$store.state.testUsers.find(
+      (user) => user.id === this.userId
+    );
   },
 };
 </script>
@@ -36,5 +65,15 @@ export default {
   height: 70vh;
   width: 50vw;
   background-color: white;
+}
+
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+input {
+  width: 50%;
 }
 </style>

@@ -29,7 +29,7 @@ export default createStore({
         name: "Zsíros B. Ödön5",
         email: "sert.es@zsir.roff",
         descript: "7jófej felhasználó , szinte kenyérre lehet kenni",
-        type: "user",
+        type: "admin",
         status: "passive",
         signupTime: "2021-11-11",
       },
