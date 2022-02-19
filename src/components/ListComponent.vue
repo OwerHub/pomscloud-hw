@@ -1,13 +1,12 @@
 <template>
-  <div>this is listComponent</div>
-
   <!-- <input type="text" v-model="search" placeholder="search blogs" /> -->
   <Search @searchFromChild="searchFromChild" />
+  <PassiveSwitch :enable="onlyActive" @switchOnlyActive="switchOnlyActive" />
   <div>
-    <button @click="onlyActive = !onlyActive">
+    <!--     <button @click="switchOnlyActive">
       <span v-if="onlyActive">Show All</span>
       <span v-else>Only Active</span>
-    </button>
+    </button> -->
   </div>
   <div>
     <table>
@@ -37,19 +36,23 @@
       </tr>
     </table>
   </div>
+
   <Modal @modalClose="closeModal" :userId="userIdForModal" v-if="modalOpen" />
-  <button @click="modalOpen = !modalOpen">Modal Open</button>
+
+  <!-- <button @click="modalOpen = !modalOpen">Modal Open</button> -->
 </template>
 
 <script>
 import Modal from "./Modal.vue";
 import Search from "./Search.vue";
+import PassiveSwitch from "./PassiveSwitch.vue";
 
 export default {
   name: "ListComponent",
   components: {
     Modal,
     Search,
+    PassiveSwitch,
   },
   data() {
     return {
@@ -57,7 +60,9 @@ export default {
       search: "",
       onlyActive: false,
       modalOpen: false,
-      userIdForModal: 99,
+      userIdForModal: 0,
+      pageNumber: 1,
+      pageSize: 4,
     };
   },
   created() {
@@ -65,9 +70,17 @@ export default {
   },
   computed: {
     filteredUsers: function () {
-      return this.userArray.filter((user) => {
+      const filteredArray = this.userArray.filter((user) => {
         return user.name.match(this.search) || user.descript.match(this.search);
       });
+
+      // ezt szerintem ki lehetne szervezni
+      const paginatedArray = filteredArray.slice(
+        (this.pageNumber - 1) * this.pageSize,
+        this.pageNumber * this.pageSize
+      );
+
+      return paginatedArray;
     },
   },
   methods: {
@@ -82,6 +95,9 @@ export default {
     sendToModal: function (id) {
       this.userIdForModal = id;
       this.modalOpen = true;
+    },
+    switchOnlyActive: function () {
+      this.onlyActive = !this.onlyActive;
     },
   },
 };

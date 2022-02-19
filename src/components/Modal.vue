@@ -20,6 +20,7 @@
           @{{ inputType }}
         </div>
       </div>
+      <button @click="saveClicked">save</button>
     </div>
   </div>
 </template>
@@ -31,19 +32,32 @@ export default {
   data() {
     return {
       id: this.userId,
-
-      actualUser: [],
+      actualUser: {},
     };
   },
   methods: {
     closeModal: function () {
       this.$emit("modalClose");
     },
+
+    saveDatasMethod1: function () {
+      // copy the actualUser datas to stage.id data. The object is inmutabla, but the values can change
+      for (const key in this.actualUser) {
+        this.$store.state.testUsers.find((user) => user.id === this.userId)[key] =
+          this.actualUser[key];
+      }
+    },
+
+    saveClicked: function () {
+      this.saveDatasMethod1();
+      this.closeModal();
+    },
   },
   created() {
-    this.actualUser = this.$store.state.testUsers.find(
-      (user) => user.id === this.userId
-    );
+    // if U dont make deep copy, the input fields direct change the state object's value
+    this.actualUser = {
+      ...this.$store.state.testUsers.find((user) => user.id === this.userId),
+    };
   },
 };
 </script>
