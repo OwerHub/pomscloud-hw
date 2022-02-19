@@ -4,6 +4,9 @@ import axios from "axios";
 export default createStore({
   state: {
     test: "testString",
+    find: "",
+    pageNumberVuex: 1,
+    pageSizeVuex: 2,
     userArray: [],
     testUsers: [
       {
@@ -51,9 +54,27 @@ export default createStore({
         actualUser[key] = userObject[key];
       }
     },
+
     updateFind(state, findString) {
       state.find = findString;
-      console.log(state.find);
+    },
+
+    updatePageNumberVuex(state, number) {
+      state.pageNumberVuex = number;
+    },
+  },
+
+  getters: {
+    filteredUserVuex(state) {
+      const filteredUsers = state.testUsers.filter((user) => {
+        return user.name.match(state.find) || user.descript.match(state.find);
+      });
+
+      const paginatedArray = filteredUsers.slice(
+        (state.pageNumberVuex - 1) * state.pageSizeVuex,
+        state.pageNumberVuex * state.pageSizeVuex
+      );
+      return paginatedArray;
     },
   },
   actions: {
@@ -61,7 +82,6 @@ export default createStore({
       axios
         .get("../datas/users.json")
         .then((response) => {
-          console.log(response.data, this);
           commit("loadUsers", response.data);
         })
         .catch((err) => console.log("fucked up" + err));

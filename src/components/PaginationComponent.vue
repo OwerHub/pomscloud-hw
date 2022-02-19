@@ -4,8 +4,8 @@
       <div
         v-for="number in pageArray"
         :key="number"
-        :class="{ actualPage: pageNumber === number }"
-        @click="$emit('changePage', number)"
+        :class="{ actualPage: $store.state.pageNumberVuex === number }"
+        @click="$store.commit('updatePageNumberVuex', number)"
       >
         <div>{{ number }}</div>
       </div>
@@ -16,13 +16,11 @@
 <script>
 export default {
   name: "Pagination",
-  props: ["userPerPage", "pageNumber"],
 
   data() {
     return {
       maxPage: 0,
     };
-    // actualpage:1
   },
 
   computed: {
@@ -31,9 +29,16 @@ export default {
     },
   },
 
+  watch: {
+    pageNumberFromVuex() {
+      console.log(this.pageNumberFromVuex);
+    },
+  },
+
   created() {
     const allUsersLength = this.$store.state.testUsers.length;
-    this.maxPage = Math.ceil(allUsersLength / this.userPerPage);
+    const userPerPageVuex = this.$store.state.pageSizeVuex;
+    this.maxPage = Math.ceil(allUsersLength / userPerPageVuex);
   },
 };
 </script>
