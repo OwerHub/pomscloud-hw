@@ -45,8 +45,15 @@ export default createStore({
     ],
   },
   mutations: {
-    loadUsers: (state, userArray) => {
-      state.userArray = userArray;
+    updateUsers(state, userObject) {
+      const actualUser = state.testUsers.find((user) => user.id === userObject.id);
+      for (const key in actualUser) {
+        actualUser[key] = userObject[key];
+      }
+    },
+    updateFind(state, findString) {
+      state.find = findString;
+      console.log(state.find);
     },
   },
   actions: {
