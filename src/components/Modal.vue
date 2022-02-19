@@ -50,9 +50,18 @@ export default {
     closeModal: function () {
       this.$emit("modalClose");
     },
+    saveDatasMethod2: function () {
+      // copy the actualUser datas to stage.id data. The object is inmutabla, but the values can change
+      this.$store.commit("updateUsers", this.actualUser);
+      /* for (const key in this.actualUser) {
+        this.$store.state.testUsers.find((user) => user.id === this.userId)[key] =
+          this.actualUser[key];
+      } */
+    },
 
     saveDatasMethod1: function () {
       // copy the actualUser datas to stage.id data. The object is inmutabla, but the values can change
+
       for (const key in this.actualUser) {
         this.$store.state.testUsers.find((user) => user.id === this.userId)[key] =
           this.actualUser[key];
@@ -60,7 +69,7 @@ export default {
     },
 
     saveClicked: function () {
-      this.saveDatasMethod1();
+      this.saveDatasMethod2();
       this.closeModal();
     },
   },
