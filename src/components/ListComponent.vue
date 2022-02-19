@@ -29,10 +29,9 @@
         <th v-on:click="sendToModal(user.id)">modify</th>
       </tr>
     </table>
-
-    <Pagination />
   </div>
 
+  <Pagination />
   <Modal @modalClose="closeModal" :userId="userIdForModal" v-if="modalOpen" />
 </template>
 

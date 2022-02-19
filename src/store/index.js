@@ -62,6 +62,11 @@ export default createStore({
     updatePageNumberVuex(state, number) {
       state.pageNumberVuex = number;
     },
+    loadUsers(state, userArray) {
+      state.userArray = userArray;
+      console.log("state");
+      console.log(state.userArray);
+    },
   },
 
   getters: {
@@ -79,6 +84,7 @@ export default createStore({
   },
   actions: {
     loadData({ commit }) {
+      console.log("try Axiaoas");
       axios
         .get("../datas/users.json")
         .then((response) => {
