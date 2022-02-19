@@ -1,7 +1,8 @@
 <template>
   <div>this is listComponent</div>
 
-  <input type="text" v-model="search" placeholder="search blogs" />
+  <!-- <input type="text" v-model="search" placeholder="search blogs" /> -->
+  <Search @searchFromChild="searchFromChild" />
   <div>
     <button @click="onlyActive = !onlyActive">
       <span v-if="onlyActive">Show All</span>
@@ -42,11 +43,13 @@
 
 <script>
 import Modal from "./Modal.vue";
+import Search from "./Search.vue";
 
 export default {
   name: "ListComponent",
   components: {
     Modal,
+    Search,
   },
   data() {
     return {
@@ -70,6 +73,10 @@ export default {
   methods: {
     closeModal: function () {
       this.modalOpen = false;
+    },
+
+    searchFromChild: function (searchValue) {
+      this.search = searchValue;
     },
 
     sendToModal: function (id) {
