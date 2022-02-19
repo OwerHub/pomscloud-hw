@@ -19,6 +19,17 @@
           />
           @{{ inputType }}
         </div>
+
+        <div v-for="inputStatus in ['passive', 'active']" :key="inputStatus">
+          <input
+            type="radio"
+            name="inputStatus"
+            :id="inputStatus"
+            :value="inputStatus"
+            v-model="actualUser.status"
+          />
+          @{{ inputStatus }}
+        </div>
       </div>
       <button @click="saveClicked">save</button>
     </div>

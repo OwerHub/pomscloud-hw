@@ -50,10 +50,12 @@ export default {
   border-radius: 5px;
   margin: 0.5rem;
   cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .buttonContainer > div:hover {
   transform: scale(1.3);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 .actualPage {
