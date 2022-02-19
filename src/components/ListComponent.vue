@@ -31,7 +31,7 @@
     </table>
   </div>
 
-  <Pagination />
+  <Pagination v-if="this.$store.state.userArray.length > 0" />
   <Modal @modalClose="closeModal" :userId="userIdForModal" v-if="modalOpen" />
 </template>
 
@@ -61,7 +61,8 @@ export default {
   },
 
   created() {
-    this.userArray = this.$store.state.testUsers;
+    this.userArray = this.$store.state.userArray;
+    /*  console.log(this.userArray[1].name); */
   },
 
   methods: {
@@ -70,6 +71,7 @@ export default {
     },
 
     sendToModal: function (id) {
+      console.log("id in sendmodal", id);
       this.userIdForModal = id;
       this.modalOpen = true;
     },

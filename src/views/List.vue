@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ListComponent />
+    <ListComponent v-if="this.$store.state.userArray.length > 0" />
   </div>
 </template>
 

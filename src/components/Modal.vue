@@ -53,17 +53,12 @@ export default {
     saveDatasMethod2: function () {
       // copy the actualUser datas to stage.id data. The object is inmutabla, but the values can change
       this.$store.commit("updateUsers", this.actualUser);
-      /* for (const key in this.actualUser) {
-        this.$store.state.testUsers.find((user) => user.id === this.userId)[key] =
-          this.actualUser[key];
-      } */
     },
 
     saveDatasMethod1: function () {
       // copy the actualUser datas to stage.id data. The object is inmutabla, but the values can change
-
       for (const key in this.actualUser) {
-        this.$store.state.testUsers.find((user) => user.id === this.userId)[key] =
+        this.$store.state.userArray.find((user) => user.id === this.userId)[key] =
           this.actualUser[key];
       }
     },
@@ -75,8 +70,9 @@ export default {
   },
   created() {
     // if U dont make deep copy, the input fields direct change the state object's value
+    console.log(this.userId);
     this.actualUser = {
-      ...this.$store.state.testUsers.find((user) => user.id === this.userId),
+      ...this.$store.state.userArray.find((user) => user.id === this.userId),
     };
   },
 };

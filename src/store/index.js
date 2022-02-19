@@ -49,7 +49,7 @@ export default createStore({
   },
   mutations: {
     updateUsers(state, userObject) {
-      const actualUser = state.testUsers.find((user) => user.id === userObject.id);
+      const actualUser = state.userArray.find((user) => user.id === userObject.id);
       for (const key in actualUser) {
         actualUser[key] = userObject[key];
       }
@@ -64,14 +64,14 @@ export default createStore({
     },
     loadUsers(state, userArray) {
       state.userArray = userArray;
-      console.log("state");
-      console.log(state.userArray);
+      /*  console.log("state");
+      console.log(state.userArray); */
     },
   },
 
   getters: {
     filteredUserVuex(state) {
-      const filteredUsers = state.testUsers.filter((user) => {
+      const filteredUsers = state.userArray.filter((user) => {
         return user.name.match(state.find) || user.descript.match(state.find);
       });
 
@@ -79,12 +79,12 @@ export default createStore({
         (state.pageNumberVuex - 1) * state.pageSizeVuex,
         state.pageNumberVuex * state.pageSizeVuex
       );
+
       return paginatedArray;
     },
   },
   actions: {
     loadData({ commit }) {
-      console.log("try Axiaoas");
       axios
         .get("../datas/users.json")
         .then((response) => {

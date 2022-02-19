@@ -36,7 +36,7 @@ export default {
   },
 
   created() {
-    const allUsersLength = this.$store.state.testUsers.length;
+    const allUsersLength = this.$store.state.userArray.length;
     const userPerPageVuex = this.$store.state.pageSizeVuex;
     this.maxPage = Math.ceil(allUsersLength / userPerPageVuex);
   },
