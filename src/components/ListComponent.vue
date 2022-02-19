@@ -2,12 +2,7 @@
   <!-- <input type="text" v-model="search" placeholder="search blogs" /> -->
   <Search @searchFromChild="searchFromChild" />
   <PassiveSwitch :enable="onlyActive" @switchOnlyActive="switchOnlyActive" />
-  <div>
-    <!--     <button @click="switchOnlyActive">
-      <span v-if="onlyActive">Show All</span>
-      <span v-else>Only Active</span>
-    </button> -->
-  </div>
+
   <div>
     <table>
       <tr>
@@ -35,6 +30,12 @@
         <th v-on:click="sendToModal(user.id)">modify</th>
       </tr>
     </table>
+
+    <Pagination
+      :userPerPage="pageSize"
+      :pageNumber="pageNumber"
+      @changePage="changePage"
+    />
   </div>
 
   <Modal @modalClose="closeModal" :userId="userIdForModal" v-if="modalOpen" />
@@ -46,14 +47,18 @@
 import Modal from "./Modal.vue";
 import Search from "./Search.vue";
 import PassiveSwitch from "./PassiveSwitch.vue";
+import Pagination from "./PaginationComponent.vue";
 
 export default {
   name: "ListComponent",
+
   components: {
     Modal,
     Search,
     PassiveSwitch,
+    Pagination,
   },
+
   data() {
     return {
       userArray: [],
@@ -62,12 +67,14 @@ export default {
       modalOpen: false,
       userIdForModal: 0,
       pageNumber: 1,
-      pageSize: 4,
+      pageSize: 2,
     };
   },
+
   created() {
     this.userArray = this.$store.state.testUsers;
   },
+
   computed: {
     filteredUsers: function () {
       const filteredArray = this.userArray.filter((user) => {
@@ -83,6 +90,7 @@ export default {
       return paginatedArray;
     },
   },
+
   methods: {
     closeModal: function () {
       this.modalOpen = false;
@@ -98,6 +106,9 @@ export default {
     },
     switchOnlyActive: function () {
       this.onlyActive = !this.onlyActive;
+    },
+    changePage: function (pageNumber) {
+      this.pageNumber = pageNumber;
     },
   },
 };
