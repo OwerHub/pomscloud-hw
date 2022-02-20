@@ -1,5 +1,4 @@
 <template>
-  <!-- <input type="text" v-model="search" placeholder="search blogs" /> -->
   <Search @searchFromChild="searchFromChild" />
   <PassiveSwitch :enable="onlyActive" @switchOnlyActive="switchOnlyActive" />
 
