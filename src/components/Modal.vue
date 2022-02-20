@@ -17,6 +17,7 @@
           <div>description:</div>
           <textarea type="text" v-model="actualUser.descript" />
         </div>
+
         <div class="radioButtonCont">
           <div v-for="inputType in ['user', 'admin']" :key="inputType">
             <input
@@ -56,8 +57,8 @@
 <script>
 export default {
   name: "Modal",
-
   props: ["userId"],
+
   data() {
     return {
       id: this.userId,
@@ -88,6 +89,7 @@ export default {
       this.closeModal();
     },
   },
+
   created() {
     // if U dont make deep copy, the input fields direct change the state object's value
     console.log(this.userId);

@@ -1,19 +1,15 @@
 <template>
-  <!--  <PassiveSwitch :enable="onlyActive" @switchOnlyActive="switchOnlyActive" /> -->
-
   <div>
-    <div>
-      {{ userArrayLength }}
-    </div>
+    <div></div>
     <table>
       <tr>
         <th>Name</th>
-        <th>mail</th>
-        <th>desc</th>
-        <th>type</th>
-        <th>status</th>
-        <th>signup</th>
-        <th>modify</th>
+        <th>Mail</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Signup</th>
+        <th>Modify</th>
       </tr>
       <tr v-for="user in $store.getters.pagedUserArrayInVuex" v-bind:key="user.id">
         <th>{{ user.name }}</th>
@@ -27,26 +23,22 @@
     </table>
   </div>
 
-  <Pagination v-if="this.$store.state.userArray.length > 0" />
   <Modal @modalClose="closeModal" :userId="userIdForModal" v-if="modalOpen" />
 </template>
 
 <script>
 import Modal from "./Modal.vue";
-import Pagination from "./PaginationComponent.vue";
 
 export default {
   name: "ListComponent",
 
   components: {
     Modal,
-    Pagination,
   },
 
   data() {
     return {
       userArray: [],
-      //onlyActive: false,
       modalOpen: false,
       userIdForModal: 0,
     };
@@ -76,9 +68,6 @@ export default {
       this.userIdForModal = id;
       this.modalOpen = true;
     },
-    /*   switchOnlyActive: function () {
-      this.onlyActive = !this.onlyActive;
-    }, */
   },
 };
 </script>

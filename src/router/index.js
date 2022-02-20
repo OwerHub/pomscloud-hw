@@ -1,14 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
 import List from "../views/List";
 import Dashboard from "../views/Dashboard";
 
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
   {
     path: "/dashboard",
     name: "Dashboard",
