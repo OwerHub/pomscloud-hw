@@ -8,44 +8,6 @@ export default createStore({
     pageNumberVuex: 1,
     pageSizeVuex: 2,
     userArray: [],
-    testUsers: [
-      {
-        id: 1,
-        name: "Zsíros B. Ödön1",
-        email: "sert.es@zsir.roff",
-        descript: "4jófej felhasználó , szinte kenyérre lehet kenni",
-        type: "user",
-        status: "active",
-        signupTime: "2021-11-11",
-      },
-      {
-        id: 2,
-        name: "Zsíros B. Ödön2",
-        email: "sert.es@zsir.roff",
-        descript: "3jófej felhasználó , szinte kenyérre lehet kenni",
-        type: "user",
-        status: "active",
-        signupTime: "2021-11-11",
-      },
-      {
-        id: 3,
-        name: "Zsíros B. Ödön5",
-        email: "sert.es@zsir.roff",
-        descript: "7jófej felhasználó , szinte kenyérre lehet kenni",
-        type: "admin",
-        status: "passive",
-        signupTime: "2021-11-11",
-      },
-      {
-        id: 4,
-        name: "Zsíros B. Ödön6",
-        email: "sert.es@zsir.roff",
-        descript: "8jófej felhasználó , szinte kenyérre lehet kenni",
-        type: "user",
-        status: "passive",
-        signupTime: "2021-11-11",
-      },
-    ],
   },
   mutations: {
     updateUsers(state, userObject) {
@@ -70,12 +32,19 @@ export default createStore({
   },
 
   getters: {
-    filteredUserVuex(state) {
+    filteredUserArrayInVuex(state) {
       const filteredUsers = state.userArray.filter((user) => {
         return user.name.match(state.find) || user.descript.match(state.find);
       });
+      return filteredUsers;
+    },
 
-      const paginatedArray = filteredUsers.slice(
+    pagedUserArrayInVuex(state, getters) {
+      /* const filteredUsers = state.userArray.filter((user) => {
+        return user.name.match(state.find) || user.descript.match(state.find);
+      }); */
+
+      const paginatedArray = getters.filteredUserArrayInVuex.slice(
         (state.pageNumberVuex - 1) * state.pageSizeVuex,
         state.pageNumberVuex * state.pageSizeVuex
       );

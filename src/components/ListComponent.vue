@@ -14,7 +14,7 @@
         <th>modify</th>
       </tr>
       <tr
-        v-for="user in $store.getters.filteredUserVuex"
+        v-for="user in $store.getters.pagedUserArrayInVuex"
         v-bind:key="user.id"
         v-show="
           user.status === 'active' || (!onlyActive && user.status === 'passive')

@@ -25,7 +25,12 @@ export default {
 
   computed: {
     pageArray: function () {
-      return Array.from({ length: this.maxPage }, (_, i) => i + 1);
+      return Array.from({ length: this.maxPage2 }, (_, i) => i + 1);
+    },
+    maxPage2: function () {
+      const allUsersLength = this.$store.getters.filteredUserArrayInVuex.length;
+      const userPerPageVuex = this.$store.state.pageSizeVuex;
+      return Math.ceil(allUsersLength / userPerPageVuex);
     },
   },
 
