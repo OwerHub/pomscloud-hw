@@ -1,8 +1,10 @@
 <template>
-  <Search />
-  <PassiveSwitch :enable="onlyActive" @switchOnlyActive="switchOnlyActive" />
+  <!--  <PassiveSwitch :enable="onlyActive" @switchOnlyActive="switchOnlyActive" /> -->
 
   <div>
+    <div>
+      {{ userArrayLength }}
+    </div>
     <table>
       <tr>
         <th>Name</th>
@@ -13,13 +15,7 @@
         <th>signup</th>
         <th>modify</th>
       </tr>
-      <tr
-        v-for="user in $store.getters.pagedUserArrayInVuex"
-        v-bind:key="user.id"
-        v-show="
-          user.status === 'active' || (!onlyActive && user.status === 'passive')
-        "
-      >
+      <tr v-for="user in $store.getters.pagedUserArrayInVuex" v-bind:key="user.id">
         <th>{{ user.name }}</th>
         <th>{{ user.email }}</th>
         <th>{{ user.descript }}</th>
@@ -37,8 +33,6 @@
 
 <script>
 import Modal from "./Modal.vue";
-import Search from "./Search.vue";
-import PassiveSwitch from "./PassiveSwitch.vue";
 import Pagination from "./PaginationComponent.vue";
 
 export default {
@@ -46,23 +40,30 @@ export default {
 
   components: {
     Modal,
-    Search,
-    PassiveSwitch,
     Pagination,
   },
 
   data() {
     return {
       userArray: [],
-      onlyActive: false,
+      //onlyActive: false,
       modalOpen: false,
       userIdForModal: 0,
     };
   },
 
-  created() {
-    this.userArray = this.$store.state.userArray;
-    /*  console.log(this.userArray[1].name); */
+  created() {},
+  computed: {
+    userArrayLength() {
+      return this.$store.getters.pagedUserArrayInVuex.length;
+    },
+  },
+  watch: {
+    userArrayLength() {
+      if (this.userArrayLength === 0) {
+        this.$store.commit("resetPage");
+      }
+    },
   },
 
   methods: {
@@ -75,9 +76,9 @@ export default {
       this.userIdForModal = id;
       this.modalOpen = true;
     },
-    switchOnlyActive: function () {
+    /*   switchOnlyActive: function () {
       this.onlyActive = !this.onlyActive;
-    },
+    }, */
   },
 };
 </script>

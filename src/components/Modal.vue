@@ -1,37 +1,54 @@
 <template>
   <div class="modalOuter">
     <div class="modalInner">
-      modalInner
-
-      <button @click="closeModal">close</button>
+      <h1>Modify</h1>
       <div class="inputDiv">
-        <input type="text" v-model="actualUser.name" />
-        <input type="text" v-model="actualUser.email" />
-        <textarea type="text" v-model="actualUser.descript" />
-
-        <div v-for="inputType in ['user', 'admin']" :key="inputType">
-          <input
-            type="radio"
-            name="inputType"
-            :id="inputType"
-            :value="inputType"
-            v-model="actualUser.type"
-          />
-          @{{ inputType }}
+        <div>
+          <span>name: </span>
+          <input type="text" v-model="actualUser.name" />
+        </div>
+        <div>
+          <span>mail: </span>
+          <input type="text" v-model="actualUser.email" />
         </div>
 
-        <div v-for="inputStatus in ['passive', 'active']" :key="inputStatus">
-          <input
-            type="radio"
-            name="inputStatus"
-            :id="inputStatus"
-            :value="inputStatus"
-            v-model="actualUser.status"
-          />
-          @{{ inputStatus }}
+        <div>
+          <div></div>
+          <div>description:</div>
+          <textarea type="text" v-model="actualUser.descript" />
+        </div>
+        <div class="radioButtonCont">
+          <div v-for="inputType in ['user', 'admin']" :key="inputType">
+            <input
+              type="radio"
+              name="inputType"
+              :id="inputType"
+              :value="inputType"
+              v-model="actualUser.type"
+            />
+            @{{ inputType }}
+          </div>
+        </div>
+
+        <div class="radioButtonCont">
+          <div v-for="inputStatus in ['passive', 'active']" :key="inputStatus">
+            <input
+              type="radio"
+              name="inputStatus"
+              :id="inputStatus"
+              :value="inputStatus"
+              v-model="actualUser.status"
+            />
+            @{{ inputStatus }}
+          </div>
         </div>
       </div>
-      <button @click="saveClicked">save</button>
+      <div class=""></div>
+
+      <div class="modalButtonCont">
+        <button @click="closeModal">close</button>
+        <button @click="saveClicked">save</button>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +56,7 @@
 <script>
 export default {
   name: "Modal",
+
   props: ["userId"],
   data() {
     return {
@@ -46,10 +64,12 @@ export default {
       actualUser: {},
     };
   },
+
   methods: {
     closeModal: function () {
       this.$emit("modalClose");
     },
+
     saveDatasMethod2: function () {
       // copy the actualUser datas to stage.id data. The object is inmutabla, but the values can change
       this.$store.commit("updateUsers", this.actualUser);
@@ -101,9 +121,22 @@ export default {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 0 0 0 30%;
 }
 
-input {
-  width: 50%;
+.inputDiv div {
+  margin: 3px 0;
+  /*  background-color: red; */
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+}
+
+.radioButtonCont {
+  display: flex;
+  justify-content: start;
 }
 </style>

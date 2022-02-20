@@ -14,6 +14,7 @@ export default {
   },
   watch: {
     searchInComponent() {
+      this.$store.commit("resetPage");
       this.$store.commit("updateFind", this.searchInComponent);
       this.$emit("searchFromChild", this.searchInComponent);
     },

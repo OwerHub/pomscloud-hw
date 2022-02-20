@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       maxPage: 0,
+      actualPage: 0,
     };
   },
 
@@ -34,16 +35,17 @@ export default {
     },
   },
 
-  watch: {
+  /*   watch: {
     pageNumberFromVuex() {
       console.log(this.pageNumberFromVuex);
+      console.log("in page");
     },
-  },
+  }, */
 
   created() {
-    const allUsersLength = this.$store.state.userArray.length;
+    /*  const allUsersLength = this.$store.state.userArray.length;
     const userPerPageVuex = this.$store.state.pageSizeVuex;
-    this.maxPage = Math.ceil(allUsersLength / userPerPageVuex);
+    this.maxPage = Math.ceil(allUsersLength / userPerPageVuex); */
   },
 };
 </script>

@@ -3,18 +3,23 @@ import axios from "axios";
 
 export default createStore({
   state: {
-    test: "testString",
+    // test: "testString",
     find: "",
+    onlyActive: false,
     pageNumberVuex: 1,
     pageSizeVuex: 2,
     userArray: [],
   },
+
   mutations: {
     updateUsers(state, userObject) {
       const actualUser = state.userArray.find((user) => user.id === userObject.id);
       for (const key in actualUser) {
         actualUser[key] = userObject[key];
       }
+    },
+    changeOnlyActive(state) {
+      state.onlyActive = !state.onlyActive;
     },
 
     updateFind(state, findString) {
@@ -26,29 +31,28 @@ export default createStore({
     },
     loadUsers(state, userArray) {
       state.userArray = userArray;
-      /*  console.log("state");
-      console.log(state.userArray); */
+    },
+    resetPage(state) {
+      state.pageNumberVuex = 1;
     },
   },
 
   getters: {
     filteredUserArrayInVuex(state) {
-      const filteredUsers = state.userArray.filter((user) => {
-        return user.name.match(state.find) || user.descript.match(state.find);
+      let searchedUsers = state.userArray.filter((user) => {
+        return (
+          (user.name.match(state.find) || user.descript.match(state.find)) &&
+          ((state.onlyActive && user.status === "active") || !state.onlyActive)
+        );
       });
-      return filteredUsers;
+      return searchedUsers;
     },
 
     pagedUserArrayInVuex(state, getters) {
-      /* const filteredUsers = state.userArray.filter((user) => {
-        return user.name.match(state.find) || user.descript.match(state.find);
-      }); */
-
       const paginatedArray = getters.filteredUserArrayInVuex.slice(
         (state.pageNumberVuex - 1) * state.pageSizeVuex,
         state.pageNumberVuex * state.pageSizeVuex
       );
-
       return paginatedArray;
     },
   },
@@ -59,7 +63,7 @@ export default createStore({
         .then((response) => {
           commit("loadUsers", response.data);
         })
-        .catch((err) => console.log("fucked up" + err));
+        .catch((err) => console.log(err));
     },
   },
   modules: {},

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click="$store.commit('changeOnlyActive')">
-      <span v-if="$store.state.onlyActive">Show All</span>
+    <button @click="$emit('switchOnlyActive')">
+      <span v-if="enable">Show All</span>
       <span v-else>Only Active</span>
     </button>
   </div>
@@ -10,5 +10,6 @@
 <script>
 export default {
   name: "PassiveSwitch",
+  props: ["enable"],
 };
 </script>
