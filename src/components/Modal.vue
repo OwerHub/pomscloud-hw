@@ -61,7 +61,7 @@ export default {
 
   data() {
     return {
-      id: this.userId,
+      //id: this.userId,
       actualUser: {},
     };
   },
@@ -72,7 +72,6 @@ export default {
     },
 
     saveDatasMethod2: function () {
-      // copy the actualUser datas to stage.id data. The object is inmutabla, but the values can change
       this.$store.commit("updateUsers", this.actualUser);
     },
 
@@ -92,7 +91,6 @@ export default {
 
   created() {
     // if U dont make deep copy, the input fields direct change the state object's value
-    console.log(this.userId);
     this.actualUser = {
       ...this.$store.state.userArray.find((user) => user.id === this.userId),
     };
@@ -129,7 +127,6 @@ export default {
 
 .inputDiv div {
   margin: 3px 0;
-  /*  background-color: red; */
 }
 
 textarea {

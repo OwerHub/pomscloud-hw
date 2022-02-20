@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div></div>
     <table>
       <tr>
         <th>Name</th>
@@ -64,7 +63,6 @@ export default {
     },
 
     sendToModal: function (id) {
-      console.log("id in sendmodal", id);
       this.userIdForModal = id;
       this.modalOpen = true;
     },

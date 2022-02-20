@@ -3,7 +3,6 @@ import axios from "axios";
 
 export default createStore({
   state: {
-    // test: "testString",
     find: "",
     onlyActive: false,
     pageNumberVuex: 1,
@@ -18,6 +17,7 @@ export default createStore({
         actualUser[key] = userObject[key];
       }
     },
+
     changeOnlyActive(state) {
       state.onlyActive = !state.onlyActive;
     },
@@ -29,9 +29,11 @@ export default createStore({
     updatePageNumberVuex(state, number) {
       state.pageNumberVuex = number;
     },
+
     loadUsers(state, userArray) {
       state.userArray = userArray;
     },
+
     resetPage(state) {
       state.pageNumberVuex = 1;
     },
