@@ -11,7 +11,7 @@
       A próbafeladat két verzióban készült el, szombatra megoldottam
       <b>props</b>-okkal és <b>$emit</b>-ekkel a feladatok nagy részét, majd tanulás
       céljából elkezdtem kísérletezni a nekem teljesen új <b>Vuex</b>-el.... végül az
-      <b>egész szerkezetet átírtam</b>.
+      <b>egész szerkezetet átírtam</b> Vuex-re fókuszálva.
     </p>
 
     <p>

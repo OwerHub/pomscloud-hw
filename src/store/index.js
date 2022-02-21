@@ -34,6 +34,7 @@ export default createStore({
       state.userArray = userArray;
     },
 
+    // i know its equal to commit.UpdatePageNumber(1), but I want use it later
     resetPage(state) {
       state.pageNumberVuex = 1;
     },
