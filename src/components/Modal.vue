@@ -112,30 +112,51 @@ export default {
 }
 
 .modalInner {
-  height: 70vh;
+  height: 60vh;
   width: 50vw;
+  padding: 1rem 0;
   background-color: white;
+  border-radius: 10px;
 }
 
 .inputDiv {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  align-items: flex-start;
-  padding: 0 0 0 30%;
+  align-items: center;
 }
 
 .inputDiv div {
-  margin: 3px 0;
+  margin: 5px 0;
 }
 
 textarea {
+  margin: 0 0 1rem;
   resize: none;
   width: 100%;
+  padding: 2px;
 }
 
 .radioButtonCont {
+  min-width: 30%;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
+  padding: 0.2rem 1rem;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.modalButtonCont button {
+  padding: 0.3rem 0.8rem;
+  margin: 2rem 1rem;
+  font-weight: bold;
+}
+
+.modalButtonCont button:nth-child(2) {
+  color: red;
+}
+
+.modalButtonCont button:nth-child(1) {
+  color: green;
 }
 </style>
